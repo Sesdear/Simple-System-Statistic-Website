@@ -1,0 +1,43 @@
+<!DOCTYPE html> <html lang="ru"> <head> <meta 
+name="viewport" content="width=device-width, 
+initial-scale=1.0"> <title>Simple System Monitor</title> 
+<style> body {
+    font-family: Arial, sans-serif; background: 
+    #111;
+    color: #fff; text-align: center; padding: 
+    10px;
+}
+.card { background: #1e1e1e; margin: 10px 0; 
+    padding: 15px; border-radius: 10px; 
+    font-size: 18px;
+}
+.value { font-size: 28px; margin-top: 5px;
+}
+</style> </head> <body> <h2>System 
+Monitor</h2> <div class="card">
+    CPU <div class="value" id="cpu">...</div> 
+</div> <div class="card">
+    RAM <div class="value" id="ram">...</div> 
+</div> <div class="card">
+    TEMP <div class="value" id="temp">...</div> 
+</div> <div class="card">
+    DISK FREE <div class="value" 
+    id="disk">...</div>
+</div> <script> async function update() { const 
+    res = await fetch('/stats'); const data = 
+    await res.json(); 
+    document.getElementById('cpu').innerText = 
+    data.cpu + " %"; 
+    document.getElementById('ram').innerText =
+        data.ram.used + " / " + data.ram.total + 
+        " MB (" + data.ram.percent + "%)";
+    document.getElementById('temp').innerText = 
+        (data.temp !== null ? data.temp + " °C" 
+        : "N/A");
+    document.getElementById('disk').innerText = 
+        data.disk.free + " GB (" + 
+        data.disk.percent + "% used)";
+}
+setInterval(update, 2000); update(); </script> 
+</body>
+</html>

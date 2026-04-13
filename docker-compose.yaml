@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  simple_sys_static_website:
+    build: .
+    container_name: simple_sys_static_website
+    ports:
+      - "80:80" 
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    privileged: true
